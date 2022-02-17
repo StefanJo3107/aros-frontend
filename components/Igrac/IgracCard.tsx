@@ -2,36 +2,75 @@ import {
     Box,
     Button,
     Center,
-    Flex,
     Grid,
     GridItem,
-    Icon,
     Text,
+    Image,
+    IconButton,
+    Icon,
+    useDisclosure,
 } from "@chakra-ui/react";
-import Image from "next/image";
-import React from "react";
-import { MdUpdate } from "react-icons/md";
-import { AiOutlineFieldNumber } from "react-icons/ai";
+import React, { useEffect } from "react";
+import { AiOutlineTrophy } from "react-icons/ai";
 import { ImLocation2 } from "react-icons/im";
-import TataSteel from "../../public/tata steel.png";
-type Props = {};
+import UpdateIgrac from "./UpdateIgrac";
 
-const TurnirCard = (props: Props) => {
+type Props = {
+    igrac: Igrac;
+    locations: Lokacija[];
+};
+
+type Lokacija = {
+    id: number;
+    naziv: string;
+};
+
+type Igrac = {
+    sahista_id: number;
+    ime: string;
+    prezime: string;
+    elo: number;
+    titula_fide: string;
+    lokacija: string;
+    sahista_slika: string;
+};
+const IgracCard = (props: Props) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     return (
-        <Box w="17rem" backgroundColor="gray.900" borderRadius="xl">
-            <Box as={Image} src={TataSteel} borderTopRadius="xl" />
-            <Text fontSize="xl" textAlign="center" mb={4} fontWeight="bold">
-                Tata Steel Chess Tournament 2022
+        <Box
+            w="17rem"
+            backgroundColor="gray.900"
+            borderRadius="xl"
+            boxShadow="dark-lg"
+            pt={4}
+        >
+            <Box
+                as={Image}
+                src={props.igrac.sahista_slika}
+                width="10rem"
+                height="10rem"
+                objectFit="cover"
+                borderRadius="50%"
+                margin="auto"
+            />
+            <Text
+                fontSize="xl"
+                textAlign="center"
+                mb={4}
+                fontWeight="bold"
+                mt={4}
+            >
+                {props.igrac.ime + " " + props.igrac.prezime}
             </Text>
             <Grid
                 templateRows="repeat(2, 1fr)"
                 templateColumns="repeat(3, 1fr)"
                 justifyItems="center"
-                mb={2}
                 p={2}
+                pb={0}
             >
                 <GridItem
-                    as={MdUpdate}
+                    as={Text}
                     rowSpan={1}
                     colSpan={1}
                     w={12}
@@ -41,9 +80,15 @@ const TurnirCard = (props: Props) => {
                     fill="orange.200"
                     p={2}
                     mb={2}
-                />
+                    textAlign="center"
+                    pt="11px"
+                    fontWeight="bold"
+                    color="orange.200"
+                >
+                    ELO
+                </GridItem>
                 <GridItem
-                    as={AiOutlineFieldNumber}
+                    as={AiOutlineTrophy}
                     rowSpan={1}
                     colSpan={1}
                     w={12}
@@ -73,17 +118,7 @@ const TurnirCard = (props: Props) => {
                     textAlign="center"
                     color="orange.200"
                 >
-                    12.1.2022. 12.2.2022.
-                </GridItem>
-                <GridItem
-                    as={Text}
-                    rowSpan={1}
-                    colSpan={1}
-                    textAlign="center"
-                    fontSize="xl"
-                    color="orange.200"
-                >
-                    7
+                    {props.igrac.elo}
                 </GridItem>
                 <GridItem
                     as={Text}
@@ -92,16 +127,32 @@ const TurnirCard = (props: Props) => {
                     textAlign="center"
                     color="orange.200"
                 >
-                    Norway
+                    {props.igrac.titula_fide}
+                </GridItem>
+                <GridItem
+                    as={Text}
+                    rowSpan={1}
+                    colSpan={1}
+                    textAlign="center"
+                    color="orange.200"
+                >
+                    {props.igrac.lokacija}
                 </GridItem>
             </Grid>
             <Center>
-                <Button colorScheme="orange" mb={4}>
-                    Prikaži turnir
+                <Button colorScheme="orange" mb={4} onClick={onOpen}>
+                    Izmeni igrača
                 </Button>
             </Center>
+            <UpdateIgrac
+                locations={props.locations}
+                igrac={props.igrac}
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onClose={onClose}
+            />
         </Box>
     );
 };
 
-export default TurnirCard;
+export default IgracCard;

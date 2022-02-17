@@ -28,19 +28,31 @@ const Hero = (props: Props) => {
                         Jednostavna organizacija šahovskih turnira
                     </Text>
                     <Text fontSize="xl" textAlign="justify" pr={40} mb={8}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Molestias dolorem earum, tenetur, fugit impedit, at in
-                        omnis eveniet quis aspernatur quibusdam quas
-                        perspiciatis corrupti blanditiis fuga neque qui
-                        repellendus odio?
+                        <span style={{ color: "#fbcb74" }}>Fianchetto</span> je
+                        platforma koja omogućava jednostavnu organizaciju
+                        šahoviskih turnira. U samo nekoliko klikova napravite
+                        turnir nakon čega možete za njega da dodate odigrane
+                        partije. Još jedna mogućnost jeste dodavanje i izmena
+                        postojećih igrača uz pomoć intuitivnog korisničkog
+                        interfejsa. Isprobajte platformu već sada klikom na
+                        dugme{" "}
+                        <span style={{ color: "#fbcb74" }}>Kreiraj turnir</span>
+                        !
                     </Text>
                     <Flex>
-                        <Button colorScheme="orange" mr={4}>
-                            Kreiraj turnir
-                        </Button>
-                        <Link href="/turnir">
-                            <Button colorScheme="orange" variant="outline">
+                        <Link href="/turniri">
+                            <Button colorScheme="orange">
                                 Pregledaj turnire
+                            </Button>
+                        </Link>
+
+                        <Link href="/igraci">
+                            <Button
+                                colorScheme="orange"
+                                variant="outline"
+                                ml={4}
+                            >
+                                Pregledaj igrače
                             </Button>
                         </Link>
                     </Flex>
